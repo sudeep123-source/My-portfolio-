@@ -1,413 +1,172 @@
-<!-- port1.html -->
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sudeep J — Portfolio</title>
-  <style>
-    :root{
-      --cream: #f8f5ef;
-      --card: #ffffff;
-      --muted: #8a8782;
-      --gray-1: #e6e5e1;
-      --gray-2: #d0ccc6;
-      --text: #2f2f2f;
-      --accent: #b9a98c; /* soft creamy accent */
-      --radius: 12px;
-      --maxw: 960px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sudeep J | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:#fff;
+  min-height:100vh;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: var(--cream);
-      color: var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-    }
+/* Animated Gradient Background */
+body::before{
+  content:"";
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(270deg,#1f1c2c,#928dab,#1f1c2c);
+  background-size:600% 600%;
+  animation:gradientMove 20s ease infinite;
+  z-index:-2;
+}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-    /* Header */
-    header{
-      background: linear-gradient(180deg, var(--gray-1), transparent);
-      border-bottom: 1px solid var(--gray-2);
-      padding: 28px 16px;
-      text-align:center;
-    }
-    .header-inner{
-      max-width: var(--maxw);
-      margin: 0 auto;
-    }
-    h1{
-      margin:0;
-      font-size:28px;
-      letter-spacing:0.2px;
-    }
-    .subline{
-      color:var(--muted);
-      margin-top:6px;
-      font-size:14px;
-    }
-    .links{ margin-top:12px; }
-    .links a{
-      text-decoration:none;
-      color:var(--text);
-      margin:0 10px;
-      font-weight:600;
-      padding:8px 10px;
-      border-radius:8px;
-      transition: all .18s ease;
-    }
-    .links a:hover{ color:var(--accent); transform:translateY(-2px); }
+/* Floating Blobs */
+.blob{
+  position:absolute;
+  width:300px;height:300px;
+  background:rgba(255,255,255,0.1);
+  border-radius:50%;
+  filter:blur(100px);
+  animation:float 12s infinite alternate ease-in-out;
+}
+.blob1{top:10%;left:10%}
+.blob2{bottom:10%;right:10%}
+@keyframes float{from{transform:translateY(-40px)}to{transform:translateY(40px)}}
 
-    /* Layout */
-    main{
-      max-width: var(--maxw);
-      margin: 28px auto;
-      padding: 0 16px 80px;
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 24px;
-    }
+/* Header */
+header{text-align:center;padding:60px 20px;}
+header h1{font-size:40px;font-weight:700;}
+header p{margin-top:10px;font-weight:300;color:#ddd;}
+nav{margin-top:25px;}
+nav button{
+  padding:10px 18px;margin:5px;
+  border:none;border-radius:30px;
+  cursor:pointer;background:rgba(255,255,255,0.1);
+  color:#fff;backdrop-filter:blur(10px);
+  transition:.3s;
+}
+nav button.active, nav button:hover{background:#00c6ff;color:#000;}
 
-    /* Content Card */
-    .content {
-      background: var(--card);
-      padding: 20px;
-      border-radius: var(--radius);
-      box-shadow: 0 8px 30px rgba(33,33,33,0.06);
-      min-height: 300px;
-      overflow: hidden;
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .content:focus { outline: none; box-shadow: 0 10px 35px rgba(33,33,33,0.08); }
+/* Sections */
+.section{
+  max-width:900px;margin:40px auto;padding:40px;
+  background:rgba(255,255,255,0.1);border-radius:20px;
+  backdrop-filter:blur(15px);box-shadow:0 10px 40px rgba(0,0,0,0.4);
+  display:none;animation:fadeIn .6s ease;
+}
+.section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+h2{margin-bottom:20px;border-bottom:2px solid rgba(255,255,255,0.3);padding-bottom:8px;}
 
-    h2.section-title{
-      margin:0 0 12px 0;
-      font-size:20px;
-      color:var(--text);
-      display:inline-block;
-      border-bottom:2px solid var(--gray-1);
-      padding-bottom:6px;
-    }
+/* Projects */
+.project{
+  margin-bottom:20px;padding:15px;
+  background:rgba(255,255,255,0.05);
+  border-radius:12px;cursor:pointer;transition:.3s;
+}
+.project:hover{background:rgba(255,255,255,0.15);}
+.project h3{
+  border-bottom:2px solid rgba(255,255,255,0.3);padding-bottom:5px;margin-bottom:8px;
+}
+.project p{display:none;margin-top:10px;font-size:14px;color:#ddd;line-height:1.5;transition:all .3s;}
 
-    /* Sidebar */
-    .sidebar{
-      position:sticky;
-      top:24px;
-      align-self:start;
-      background:var(--card);
-      padding:18px;
-      border-radius:var(--radius);
-      box-shadow: 0 6px 20px rgba(33,33,33,0.05);
-    }
-    .profile{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-bottom:12px;
-    }
-    .avatar{
-      width:64px;height:64px;border-radius:12px;
-      background:linear-gradient(180deg,#ddd,#eee);
-      display:flex;align-items:center;justify-content:center;
-      color:var(--muted); font-weight:700;
-      font-size:18px;
-    }
-    .contact small{ color:var(--muted);display:block; }
-    .download{
-      display:inline-block;
-      margin-top:12px;
-      background:transparent;
-      border:1px solid var(--gray-2);
-      padding:8px 12px;
-      border-radius:8px;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:600;
-    }
+/* Skills */
+.skill{margin-bottom:20px;font-weight:500;}
+.bar{height:8px;background:rgba(255,255,255,0.2);border-radius:20px;overflow:hidden;margin-top:6px;}
+.bar span{display:block;height:100%;background:#00c6ff;width:0;transition:1.5s;}
 
-    /* Nav pills below header (active state) */
-    nav.pills{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin-top:16px;
-      flex-wrap:wrap;
-    }
-    .pill{
-      padding:8px 12px;
-      border-radius:999px;
-      background:transparent;
-      border:1px solid transparent;
-      cursor:pointer;
-      font-weight:600;
-      color:var(--muted);
-      transition: all .18s ease;
-    }
-    .pill:hover{ color:var(--text); transform:translateY(-3px); }
-    .pill.active{
-      background: linear-gradient(90deg, rgba(185,169,140,0.12), rgba(185,169,140,0.05));
-      border:1px solid var(--gray-1);
-      color:var(--text);
-      box-shadow: 0 6px 18px rgba(185,169,140,0.06);
-    }
+/* Contact */
+.contact a{display:block;margin:8px 0;color:#00c6ff;text-decoration:none;}
 
-    /* Skill bars */
-    .skill{
-      margin:10px 0;
-    }
-    .skill .label{ display:flex; justify-content:space-between; font-size:14px; color:var(--muted); margin-bottom:6px; }
-    .bar{
-      height:10px;
-      background:var(--gray-1);
-      border-radius:999px;
-      overflow:hidden;
-    }
-    .bar > i{
-      display:block; height:100%;
-      background: linear-gradient(90deg, var(--accent), #d8c7a9);
-      border-radius:999px;
-      transition: width .6s cubic-bezier(.2,.9,.2,1);
-    }
-
-    /* Project list */
-    .project{
-      margin:14px 0;
-      padding:12px;
-      border-radius:10px;
-      background: linear-gradient(180deg,#fff,#fbfbfb);
-      border:1px solid var(--gray-1);
-    }
-    .project h4{ margin:0 0 6px 0; font-size:16px; }
-    .project p{ margin:0; color:var(--muted); font-size:14px; }
-
-    /* Footer */
-    footer{
-      max-width: var(--maxw);
-      margin: 0 auto 40px;
-      text-align:center;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px){
-      main{ grid-template-columns: 1fr; padding-bottom:40px; }
-      .sidebar{ position:static; }
-    }
-
-  </style>
+footer{text-align:center;padding:20px;font-size:14px;color:#aaa;}
+</style>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <h1>Sudeep J</h1>
-      <div class="subline">Analytical and Passionate engineering graduate — Patent holder </div>
 
-      <nav class="pills" aria-label="Primary sections">
-        <button class="pill active" data-target="about">About</button>
-        <button class="pill" data-target="skills">Skills</button>
-        <button class="pill" data-target="projects">Projects</button>
-        <button class="pill" data-target="education">Education</button>
-        <button class="pill" data-target="certifications">Certifications</button>
-        <button class="pill" data-target="contact">Contact</button>
-      </nav>
-    </div>
-  </header>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
 
-  <main>
-    <!-- main dynamic content -->
-    <section class="content" id="mainContent" tabindex="-1" aria-live="polite">
-      <!-- initial content loaded by JS (Professional Summary / About) -->
-    </section>
+<header>
+  <h1>Sudeep J</h1>
+  <p>EEE Student | Data Analytics Intern | Tech Enthusiast</p>
+  <nav>
+    <button onclick="showSection('about')" class="active">About</button>
+    <button onclick="showSection('projects')">Projects</button>
+    <button onclick="showSection('skills')">Skills</button>
+    <button onclick="showSection('contact')">Contact</button>
+  </nav>
+</header>
 
-    <!-- sidebar -->
-    <aside class="sidebar" aria-labelledby="contact-title">
-      <div class="profile">
-        <div class="avatar">SJ</div>
-        <div>
-          <div style="font-weight:700">Sudeep J</div>
-          <div style="font-size:13px;color:var(--muted)">B.E - EEE • New Horizon College</div>
-        </div>
-      </div>
+<section id="about" class="section active">
+<h2>About Me</h2>
+<p>I am currently studying Electrical and Electronics Engineering (EEE) at New Horizon College of Engineering, Bangalore. I am passionate about technology, AI systems, and solving real-world engineering problems.</p>
+<p>Currently pursuing a Data Analytics Internship at Elevate Labs where I work with Python, SQL, and data visualization tools to analyze datasets and extract meaningful insights. I aim to build strong expertise in software, AI, and networking domains.</p>
+<p>Published Patent: “Ventilated Smart Techno Shoe for Trekking”. Participated in Smart India Hackathon developing a solar-powered energy system with automated sun-tracking for optimized energy generation.</p>
+</section>
 
-      <div class="contact" id="contact-info">
-        <small>Email</small>
-        <div style="font-weight:600;margin-bottom:6px">sudeep8997j@gmail.com</div>
-        <small>Phone</small>
-        <div style="font-weight:600;margin-bottom:10px">8073964188</div>
-        <a class="portfolio" href="SudeeppResume.pdf" target="_blank">View Resume</a>
-      </div>
+<section id="projects" class="section">
+<h2>Projects</h2>
 
-      <hr style="margin:14px 0;border:none;border-top:1px solid var(--gray-1)">
+<div class="project" onclick="toggleProject(this)">
+<h3>AI Color – DeepColor Image Colorization System</h3>
+<p>Developed an AI-based application that converts black-and-white images into realistic colored images using a pre-trained deep learning model. Implemented with Python, OpenCV, and NumPy for preprocessing, model integration, and color prediction. Enhances old photographs with natural color while improving processing efficiency and real-world usability.</p>
+</div>
 
-      <div>
-        <small style="color:var(--muted)">Top Skills</small>
-        <div style="margin-top:8px">
-          <div style="font-weight:700">Java</div>
-          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Core OOPs, DS in Java, JDBC</div>
+<div class="project" onclick="toggleProject(this)">
+<h3>Lab Management – Student Management System</h3>
+<p>Built a Java Spring Boot backend to manage student info securely using MySQL with REST APIs. Implemented CRUD operations with optimized database structure to avoid redundancy. Demonstrates backend development, database design, and efficient query handling skills.</p>
+</div>
 
-          <div style="font-weight:700">Python</div>
-          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Scripting & basics</div>
+<div class="project" onclick="toggleProject(this)">
+<h3>High-Speed AI Accelerator Core Using Domino Logic</h3>
+<p>Designed and simulated a high-speed MAC unit using Domino Logic, achieving faster computation than traditional CMOS. Optimized for AI processing in edge and embedded applications. Inspired by accelerators like Google TPU & NVIDIA Tensor Cores for energy-efficient neural networks.</p>
+</div>
 
-          <div style="font-weight:700">SQL / MySQL</div>
-          <div style="font-size:13px;color:var(--muted);margin-bottom:6px">DB CRUD, queries</div>
-        </div>
-      </div>
-    </aside>
-  </main>
+<div class="project" onclick="toggleProject(this)">
+<h3>Arduino-Based Voice Control Robot</h3>
+<p>Developed a voice-controlled robot using Arduino & speech recognition. Integrated motor drivers and Bluetooth for wireless control. Added sensors for obstacle detection & environmental awareness to enhance responsiveness and functionality.</p>
+</div>
 
-  <footer>© 2025 Sudeep J — Built with a modern grey & creamy theme</footer>
+</section>
 
-  <script>
-    /* --- Content templates --- */
-    const templates = {
-      about: `
-        <h2 class="section-title">Professional Summary</h2>
-        <div style="margin-top:12px;">
-          <p><strong>Analytical and passionate engineering graduate</strong> with experience in software projects, customer-oriented solutions, and leadership initiatives. Skilled in technical problem-solving, communication, and building innovative solutions. Patent holder and hackathon finalist with proven ability to drive efficiency and value delivery across projects and teams.</p>
+<section id="skills" class="section">
+<h2>Skills</h2>
+<div class="skill">Python<div class="bar"><span style="width:85%"></span></div></div>
+<div class="skill">SQL<div class="bar"><span style="width:80%"></span></div></div>
+<div class="skill">Java<div class="bar"><span style="width:75%"></span></div></div>
+<div class="skill">Data Analytics<div class="bar"><span style="width:80%"></span></div></div>
+</section>
 
-          <h2 class="section-title" style="margin-top:18px">About</h2>
-          <div style="margin-top:10px;color:var(--muted)">
-            <p>I am currently pursuing B.E in Electrical & Electronics Engineering (2022–2026) at New Horizon College of Engineering. I enjoy building software tools (Core Java, JDBC, SQL) and exploring AI/hardware co-design (Domino-logic AI accelerator). I participate in hackathons and contribute to club activities.</p>
-          </div>
-        </div>
-      `,
-      skills: `
-        <h2 class="section-title">Technical Skills</h2>
-        <div style="margin-top:12px">
-          <div class="skill">
-            <div class="label"><span>Java (OOPs, DS)</span><span>85%</span></div>
-            <div class="bar"><i style="width:85%"></i></div>
-          </div>
-          <div class="skill">
-            <div class="label"><span>Data Structures (in Java)</span><span>80%</span></div>
-            <div class="bar"><i style="width:80%"></i></div>
-          </div>
-          <div class="skill">
-            <div class="label"><span>Python</span><span>72%</span></div>
-            <div class="bar"><i style="width:75%"></i></div>
-          </div>
-          <div class="skill">
-            <div class="label"><span>MySQL / DBMS</span><span>70%</span></div>
-            <div class="bar"><i style="width:70%"></i></div>
-          </div>
-          <div class="skill">
-            <div class="label"><span>Computer Networking</span><span>65%</span></div>
-            <div class="bar"><i style="width:70%"></i></div>
-          </div>
+<section id="contact" class="section contact">
+<h2>Contact</h2>
+<a href="mailto:sudeep8997j@gmail.com">Email: sudeep8997j@gmail.com</a>
+<a href="https://www.linkedin.com/in/sudeep-j-29664325b" target="_blank">LinkedIn</a>
+<a href="https://github.com/sudeepj" target="_blank">GitHub</a>
+</section>
 
-          <h2 class="section-title" style="margin-top:18px">Soft / Other Skills</h2>
-          <div style="margin-top:10px;color:var(--muted)">
-            <ul>
-              <li>Problem Solving, Logical Thinking</li>
-              <li>Scrum & Team Leadership</li>
-              <li>Communication & Collaboration</li>
-              <li>Patent ideation & Hackathon experience</li>
-            </ul>
-          </div>
-        </div>
-      `,
-      projects: `
-        <h2 class="section-title">Projects</h2>
+<footer>© 2026 Sudeep J | Portfolio</footer>
 
-        <div class="project">
-          <h4>Lab Asset Management & Tracking System</h4>
-          <p>Core Java application using JDBC & MySQL for real-time CRUD on lab assets (laptops, printers, licenses). OOP-driven design for maintainability.</p>
-          <small style="color:var(--muted)">Tech: Java • JDBC • MySQL</small>
-        </div>
+<script>
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
 
-        <div class="project">
-          <h4>High-Speed AI Accelerator Core (Domino Logic)</h4>
-          <p>Design & simulation of a MAC unit using Domino logic to improve speed & energy efficiency for edge AI. Application: efficient neural compute units.</p>
-          <small style="color:var(--muted)">Tech: Digital VLSI concepts • Domino logic • AI acceleration</small>
-        </div>
+function toggleProject(element){
+  const p = element.querySelector('p');
+  p.style.display = p.style.display==="block"?"none":"block";
+}
+</script>
 
-        <div class="project">
-          <h4>DIGITAL EXPENSE MONITORING SYSTEM</h4>
-          <p>Currently developing a web-based Expense Tracker system to help users record, categorize, and monitor daily spending through an intuitive interface. Implementing backend logic for secure data storage, automated calculations, and real-time analytics such as monthly and category-wise reports.</p> 
-          <p>Designing a structured database with plans for secure login, user profiles, and budgeting information, along with notifications for budget limits and monthly summaries. Aiming to deliver a complete end-to-end solution that enhances personal financial management with accurate insights and strong security. </p>
-          <small style="color:var(--muted)">Tech: Java • SQL</small>
-        </div>
-
-        <div class="project">
-          <h4>DESIGN AND SIMULATION OF A HIGH-SPEED AI ACCELERATOR CORE USING DOMINO LOGIC</h4>
-          <p>This project proposes the design of a MAC unit using Domino logic, which is significant speed over traditional CMOS logic. The aim is to enable AI processing for edge and embedded applications with improved efficiency. 
-            APPLICATION: Used in hardware like Google TPU and NVIDIA Tensor Cores for fast and energy efficient neural network processing</p>
-          <small style="color:var(--muted)">Tech: IoT concept • Renewable energy • Prototyping</small>
-        </div>
-      `,
-      education: `
-        <h2 class="section-title">Education</h2>
-        <div style="margin-top:12px;color:var(--muted)">
-          <p><strong>B.E — Electrical & Electronics Engineering</strong><br>New Horizon College of Engineering (2022–2026) — 8.30 CGPA</p>
-          <p><strong>PCMC — 12th</strong><br>St. Francis Institution, Bangalore — 85.22%</p>
-        </div>
-      `,
-      certifications: `
-        <h2 class="section-title">Certifications</h2>
-        <div style="margin-top:12px;color:var(--muted)">
-          <ul>
-            <li>Solved 500+ Java problems — CodeChef</li>
-            <li>SQL Foundation — HackerRank</li>
-            <li>Operating Systems — Cisco</li>
-            <li>Data Science Foundation — IBM</li>
-          </ul>
-        </div>
-      `,
-      contact: `
-        <h2 class="section-title">Contact</h2>
-        <div style="margin-top:12px;color:var(--muted)">
-          <p><strong>Email:</strong> <a href="mailto:sudeep8997j@gmail.com">sudeep8997j@gmail.com</a></p>
-          <p><strong>Phone:</strong> 8073964188</p>
-          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sudeep-j-29664325b" target="_blank">linkedin.com/in/sudeep-j-29664325b</a></p>
-        </div>
-      `
-    };
-
-    /* --- DOM logic --- */
-    const main = document.getElementById('mainContent');
-    const pills = Array.from(document.querySelectorAll('.pill'));
-
-    function setActive(target){
-      // update pill active state
-      pills.forEach(p => p.classList.toggle('active', p.dataset.target === target));
-      // load template
-      main.innerHTML = templates[target] || "<p>Section not found.</p>";
-      // focus for accessibility (announce change)
-      main.focus({preventScroll:true});
-      // animate bars (reflow then set widths) — add small delay so transition visible
-      requestAnimationFrame(()=> {
-        const bars = main.querySelectorAll('.bar > i');
-        bars.forEach(b => {
-          const width = b.style.width || '0%';
-          b.style.width = '0%';
-          setTimeout(()=> b.style.width = width, 60);
-        });
-      });
-    }
-
-    // attach events
-    pills.forEach(p => {
-      p.addEventListener('click', () => setActive(p.dataset.target));
-    });
-
-    // set initial view to "about" (Professional Summary)
-    setActive('about');
-
-    // keyboard: allow left/right to cycle (optional)
-    let idx = 0;
-    document.addEventListener('keydown', (e) => {
-      if (['ArrowLeft','ArrowRight'].includes(e.key)){
-        idx = pills.findIndex(p => p.classList.contains('active'));
-        if (e.key === 'ArrowLeft') idx = (idx - 1 + pills.length) % pills.length;
-        else idx = (idx + 1) % pills.length;
-        pills[idx].click();
-      }
-    });
-  </script>
 </body>
 </html>
